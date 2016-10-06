@@ -1,6 +1,6 @@
-# Language File Maker
+# Language File Maker for Staxel
 
-A simple program used to create the .lang files that Staxel uses.
+A simple program used to create the .lang files that Staxel uses to get localisations.
 
 ![](https://puu.sh/rzuwQ/812cca07a1.png)
 
