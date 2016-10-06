@@ -31,11 +31,13 @@ namespace LangFileMaker
                 StreamWriter sw = CreateLangFile(textBox1.Text);
                 progressBar1.Value = 0;
 
+                string modDirectory = textBox1.Text;
+
                 MessageLabelWithRefresh("Finding Files.");
-                List<string> tileFiles = GetListOfFiles(textBox1.Text, "tile");
-                List<string> itemFiles = GetListOfFiles(textBox1.Text, "item");
-                List<string> accesoryFiles = GetListOfFiles(textBox1.Text, "accessory");
-                List<string> emoteFiles = GetListOfFiles(textBox1.Text, "emote");
+                List<string> tileFiles = GetListOfFiles(modDirectory, "tile");
+                List<string> itemFiles = GetListOfFiles(modDirectory, "item");
+                List<string> accesoryFiles = GetListOfFiles(modDirectory, "accessory");
+                List<string> emoteFiles = GetListOfFiles(modDirectory, "emote");
                 progressBar1.Maximum = tileFiles.Count + itemFiles.Count + accesoryFiles.Count + emoteFiles.Count;
 
                 try
@@ -134,13 +136,11 @@ namespace LangFileMaker
         {
             foreach (string tileFile in tileFiles)
             {
-                //Console.WriteLine("Parsing data.");
                 StreamReader sr = new StreamReader(tileFile);
                 string jsontext = sr.ReadToEnd();
                 sr.Close();
 
                 dynamic itemArray = JsonConvert.DeserializeObject(jsontext);
-                //Console.WriteLine("Writing: " + itemArray.code + ".name=");
                 if (itemArray == null)
                 {
                     throw new ArgumentException("Malform Json in the file:\n" + tileFile);
@@ -150,7 +150,6 @@ namespace LangFileMaker
                     throw new ArgumentException("Json missing the property \"code\" in the file:\n" + tileFile);
                 }
                 sw.WriteLine(itemArray.code + ".name=");
-                //Console.WriteLine("Writing: " + itemArray.code + ".description=");
                 sw.WriteLine(itemArray.code + ".description=");
                 progressBar1.PerformStep();
             }
@@ -160,7 +159,6 @@ namespace LangFileMaker
         {
             foreach (string tileFile in tileFiles)
             {
-                //Console.WriteLine("Parsing data.");
                 StreamReader sr = new StreamReader(tileFile);
                 string jsontext = sr.ReadToEnd();
                 sr.Close();
@@ -174,7 +172,6 @@ namespace LangFileMaker
                 {
                     throw new ArgumentException("Json missing the property \"code\" in the file:\n" + tileFile);
                 }
-                //Console.WriteLine("Writing: " + itemArray.code + "=");
                 sw.WriteLine(itemArray.code + "=");
                 progressBar1.PerformStep();
             }
