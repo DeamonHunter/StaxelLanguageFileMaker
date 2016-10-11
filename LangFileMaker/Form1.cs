@@ -104,11 +104,12 @@ namespace LangFileMaker
         private StreamWriter CreateLangFile(string modFolderPath)
         {
             StreamWriter sw;
-            if (checkBox1.Checked)
+            if (buttonAppend.Checked)
             {
+                Console.Write("Button append selected");
                 sw = new StreamWriter(modFolderPath + "\\EN-GB.lang", false);
             }
-            else
+            else if (buttonNew.Checked)
             {
                 int i = 0;
                 string filename = "\\EN-GB.lang";
@@ -126,6 +127,10 @@ namespace LangFileMaker
                     i++;
                 } while (noDuplicateFile);
                 sw = new StreamWriter(modFolderPath + filename, false);
+            } 
+            else
+            {
+                sw = new StreamWriter(modFolderPath + "\\EN-GB.lang", false);
             }
 
             sw.WriteLine("language.code=en-GB\nlanguage=English\n\n");
